@@ -1,6 +1,8 @@
 package com.yichun.ticket.member.service;
 
 import cn.hutool.core.collection.CollUtil;
+import com.yichun.ticket.common.exception.BusinessException;
+import com.yichun.ticket.common.exception.BusinessExceptionEnum;
 import com.yichun.ticket.member.domain.Member;
 import com.yichun.ticket.member.domain.MemberExample;
 import com.yichun.ticket.member.mapper.MemberMapper;
@@ -28,7 +30,7 @@ public class MemberService {
 
         if (CollUtil.isNotEmpty(list)){
 //            return list.get(0).getId(); //已有的话直接给他登录了？
-            throw new RuntimeException("手机号已注册");
+            throw new BusinessException(BusinessExceptionEnum.MEMBER_MOBILE_EXIST);
         }
         Member member = new Member();
         member.setId(System.currentTimeMillis());

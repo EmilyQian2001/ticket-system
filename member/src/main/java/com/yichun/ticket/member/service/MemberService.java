@@ -3,6 +3,7 @@ package com.yichun.ticket.member.service;
 import cn.hutool.core.collection.CollUtil;
 import com.yichun.ticket.common.exception.BusinessException;
 import com.yichun.ticket.common.exception.BusinessExceptionEnum;
+import com.yichun.ticket.common.util.SnowUtil;
 import com.yichun.ticket.member.domain.Member;
 import com.yichun.ticket.member.domain.MemberExample;
 import com.yichun.ticket.member.mapper.MemberMapper;
@@ -33,7 +34,7 @@ public class MemberService {
             throw new BusinessException(BusinessExceptionEnum.MEMBER_MOBILE_EXIST);
         }
         Member member = new Member();
-        member.setId(System.currentTimeMillis());
+        member.setId(SnowUtil.getSnowflakeNextId());
         member.setMobile(mobile);
         memberMapper.insert(member);
         return member.getId();

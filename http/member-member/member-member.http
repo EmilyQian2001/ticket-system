@@ -1,0 +1,4 @@
+# first member is context_path for route relay, second member is the actual mapping
+GET http://localhost:8000/member/member/count
+Accept: application/json
+

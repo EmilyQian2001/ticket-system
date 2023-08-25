@@ -1,8 +1,10 @@
 package com.yichun.ticket.member.controller;
 
 import com.yichun.ticket.common.resp.CommonResp;
+import com.yichun.ticket.member.req.MemberLoginReq;
 import com.yichun.ticket.member.req.MemberRegisterReq;
 import com.yichun.ticket.member.req.MemberSendCodeReq;
+import com.yichun.ticket.member.resp.MemberLoginResp;
 import com.yichun.ticket.member.service.MemberService;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
@@ -36,5 +38,11 @@ public class MemberController {
     public CommonResp<Long> register(@Valid MemberSendCodeReq req){
         memberService.sendCode(req);
         return new CommonResp<>();
+    }
+
+    @PostMapping("/login")
+    public CommonResp<MemberLoginResp> register(@Valid MemberLoginReq req){
+        MemberLoginResp resp = memberService.login(req);
+        return new CommonResp<>(resp);
     }
 }

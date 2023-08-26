@@ -44,6 +44,7 @@ import {defineComponent, reactive} from 'vue';
 import axios from "axios";
 import {notification} from "ant-design-vue";
 import {useRouter} from "vue-router";
+import store from "@/store";
 
 export default defineComponent({
   name: "login-view",
@@ -75,6 +76,9 @@ export default defineComponent({
           notification.success({ description: '登录成功！' });
           //登录成功，跳到空台主页
           router.push("/");
+          store.commit("setMember",data.content);
+          //commit相当于dispatch，只要传set方法的第二个参数就可以了
+
         } else {
           notification.error({ description: data.message });
         }

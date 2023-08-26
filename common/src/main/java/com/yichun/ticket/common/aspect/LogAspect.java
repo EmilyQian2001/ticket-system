@@ -31,7 +31,7 @@ public class LogAspect {
     /**
      * 定义一个切点
      */
-    @Pointcut("execution(public * com.jiawa..*Controller.*(..))")
+    @Pointcut("execution(public * com.yichun..*Controller.*(..))")
     public void controllerPointcut() {
     }
 

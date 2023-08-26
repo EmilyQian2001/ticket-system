@@ -5,6 +5,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.yichun.ticket.common.exception.BusinessException;
 import com.yichun.ticket.common.exception.BusinessExceptionEnum;
+import com.yichun.ticket.common.util.JwtUtil;
 import com.yichun.ticket.common.util.SnowUtil;
 import com.yichun.ticket.member.domain.Member;
 import com.yichun.ticket.member.domain.MemberExample;
@@ -89,11 +90,10 @@ public class MemberService {
         if(!code.equals("8888")){
             throw new BusinessException(BusinessExceptionEnum.MOBILE_CODE_ERROR);
         }
-        //返回用户信息，但是只能返回部分，所以我们封装一个resp
-//        MemberLoginResp memberLoginResp = new MemberLoginResp();
-//        memberLoginResp.setId(memberDB.getId());
-//        memberLoginResp.setMobile(memberDB.getMobile());
-        return BeanUtil.copyProperties(memberDB, MemberLoginResp.class);
+        MemberLoginResp memberLoginResp = BeanUtil.copyProperties(memberDB, MemberLoginResp.class);
+        String token = JwtUtil.createToken(memberLoginResp.getId(), memberLoginResp.getMobile());
+        memberLoginResp.setToken(token);
+        return memberLoginResp;
     }
 
     private Member selectByMobile(String mobile) {

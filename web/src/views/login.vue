@@ -53,7 +53,7 @@ export default defineComponent({
 
     // 初始化
     const loginForm = reactive({
-      mobile: '13000000000',
+      mobile: '13000000001',
       code: '',
     });
     const sendCode = () => {

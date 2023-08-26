@@ -22,7 +22,7 @@ public class JwtUtil {
 
     public static String createToken(Long id, String mobile) {
         DateTime now = DateTime.now();
-        DateTime expTime = now.offsetNew(DateField.HOUR, 1);
+        DateTime expTime = now.offsetNew(DateField.SECOND, 10);
         Map<String, Object> payload = new HashMap<>();
         // 签发时间
         payload.put(JWTPayload.ISSUED_AT, now);
@@ -65,7 +65,7 @@ public class JwtUtil {
         //for testing
         createToken(1L, "123");
 
-        String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2OTMwMjU4MDYsIm1vYmlsZSI6IjEyMyIsImlkIjoxLCJleHAiOjE2OTMwNjE4MDYsImlhdCI6MTY5MzAyNTgwNn0.hOMbMAJqjpFOIB8guOdxW1eoieHi5XCLwIhDofP0lMw";
+        String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE2OTMwMzM2MTAsIm1vYmlsZSI6IjEyMyIsImlkIjoxLCJleHAiOjE2OTMwMzM2MjAsImlhdCI6MTY5MzAzMzYxMH0._0lcfEpioCNk1bnVl7ZslhWOEk8bTTpeRarnqNlQPV8";
         validate(token);
 
         getJSONObject(token);

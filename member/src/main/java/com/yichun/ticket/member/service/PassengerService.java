@@ -42,6 +42,7 @@ public class PassengerService {
 
     public PageResp<PassengerQueryResp> queryList(PassengerQueryReq req){
         PassengerExample passengerExample = new PassengerExample();
+        passengerExample.setOrderByClause("id desc"); //最新添加的在最上面，降序
         PassengerExample.Criteria criteria= passengerExample.createCriteria();
         //必须把criteria放在外面，这样可以叠加多个条件
         if(ObjectUtil.isNotNull(req.getMemberId())){

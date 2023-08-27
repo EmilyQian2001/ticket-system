@@ -1,0 +1,65 @@
+<template>
+  <a-button type="primary" @click="showModal">新增</a-button>
+  <a-modal v-model:visible="visible" title="乘车人" @ok="handleOk"
+           ok-text="确认" cancel-text="取消">
+    <a-form :model="passenger" :label-col="{span: 4}" :wrapper-col="{ span: 20 }">
+      <a-form-item label="姓名">
+        <a-input v-model:value="passenger.name" />
+      </a-form-item>
+      <a-form-item label="身份证">
+        <a-input v-model:value="passenger.idCard" />
+      </a-form-item>
+      <a-form-item label="类型">
+        <a-select v-model:value="passenger.type">
+          <a-select-option value="1">成人</a-select-option>
+          <a-select-option value="2">儿童</a-select-option>
+          <a-select-option value="3">学生</a-select-option>
+        </a-select>
+      </a-form-item>
+    </a-form>
+  </a-modal>
+</template>
+<script>
+import { defineComponent, ref, reactive } from 'vue';
+import {notification} from "ant-design-vue";
+import axios from "axios";
+
+export default defineComponent({
+  name: "passenger-view",
+  setup() {
+    const visible = ref(false);
+    const passenger = reactive({
+      id: undefined,
+      memberId: undefined,
+      name: undefined,
+      idCard: undefined,
+      type: undefined,
+      createTime: undefined,
+      updateTime: undefined,
+      // 与后端数据库保持一致
+    })
+    const showModal = () => {
+      visible.value = true;
+    }
+    const handleOk = () => {
+      axios.post("/member/passenger/save", passenger).then((response) => {
+        let data = response.data;
+        if (data.success) {
+          notification.success({description: "保存成功！"});
+          visible.value = false;
+        } else {
+          notification.error({description: data.message});
+        }
+      });
+    }
+    return {
+      passenger,
+      visible,
+      showModal,
+      handleOk
+    };
+  },
+});
+</script>
+<style>
+</style>

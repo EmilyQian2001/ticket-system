@@ -75,7 +75,7 @@ export default defineComponent({
         if (data.success) {
           notification.success({ description: '登录成功！' });
           //登录成功，跳到空台主页
-          router.push("/");
+          router.push("/welcome");
           store.commit("setMember",data.content);
           //commit相当于dispatch，只要传set方法的第二个参数就可以了
 

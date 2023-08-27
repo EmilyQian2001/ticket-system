@@ -1,6 +1,8 @@
 package com.yichun.ticket.member.req;
 
-public class PassengerQueryReq {
+import com.yichun.ticket.common.req.PageReq;
+
+public class PassengerQueryReq extends PageReq {
 
     private Long memberId;
 

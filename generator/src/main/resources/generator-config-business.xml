@@ -29,20 +29,20 @@
         </jdbcConnection>
 
         <!-- domain类的位置 targetProject是相对pom.xml的路径-->
-        <javaModelGenerator targetProject="../member/src/main/java"
-                            targetPackage="com.yichun.ticket.member.domain"/>
+        <javaModelGenerator targetProject="../business/src/main/java"
+                            targetPackage="com.yichun.ticket.business.domain"/>
 
         <!-- mapper xml的位置 targetProject是相对pom.xml的路径 -->
-        <sqlMapGenerator targetProject="../member/src/main/resources"
+        <sqlMapGenerator targetProject="../business/src/main/resources"
                          targetPackage="mapper"/>
 
         <!-- mapper类的位置 targetProject是相对pom.xml的路径 -->
-        <javaClientGenerator targetProject="../member/src/main/java"
-                             targetPackage="com.yichun.ticket.member.mapper"
+        <javaClientGenerator targetProject="../business/src/main/java"
+                             targetPackage="com.yichun.ticket.business.mapper"
                              type="XMLMAPPER"/>
 
-<!--        <table tableName="member" domainObjectName="Member"/>-->
-        <table tableName="passenger" domainObjectName="Passenger"/>
+        <table tableName="station" domainObjectName="Station"/>
+<!--        <table tableName="passenger" domainObjectName="Passenger"/>-->
 <!--        <table tableName="ticket" domainObjectName="Ticket"/>-->
     </context>
 </generatorConfiguration>

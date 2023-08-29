@@ -3,6 +3,7 @@ package com.yichun.ticket.business.controller.admin;
 import com.yichun.ticket.business.req.TrainQueryReq;
 import com.yichun.ticket.business.req.TrainSaveReq;
 import com.yichun.ticket.business.resp.TrainQueryResp;
+import com.yichun.ticket.business.service.TrainSeatService;
 import com.yichun.ticket.business.service.TrainService;
 import com.yichun.ticket.common.resp.CommonResp;
 import com.yichun.ticket.common.resp.PageResp;
@@ -18,6 +19,9 @@ public class TrainAdminController {
 
     @Resource
     private TrainService trainService;
+
+    @Resource
+    private TrainSeatService trainSeatService;
 
     @PostMapping("/save")
     public CommonResp<Object> save(@Valid @RequestBody TrainSaveReq req) {
@@ -43,4 +47,9 @@ public class TrainAdminController {
         return new CommonResp<>(list);
     }
 
+    @GetMapping("/gen-seat/{trainCode}")
+    public CommonResp<Object> genSeat(@PathVariable String trainCode) {
+        trainSeatService.genTrainSeat(trainCode);
+        return new CommonResp<>();
+    }
 }

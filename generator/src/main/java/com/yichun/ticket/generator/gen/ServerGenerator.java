@@ -1,4 +1,4 @@
-package com.yichun.ticket.generator.server;
+package com.yichun.ticket.generator.gen;
 
 import com.yichun.ticket.generator.util.DbUtil;
 import com.yichun.ticket.generator.util.Field;

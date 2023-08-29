@@ -10,3 +10,7 @@ Accept: application/json
 ###
 GET http://localhost:8000/business/admin/station/query-list?page=1&size=1
 Accept: application/json
+
+###
+GET http://localhost:8000/business/admin/train-station/query-list?page=1&size=1
+Accept: application/json

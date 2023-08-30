@@ -1,2 +1,2 @@
-GET http://localhost:8000/business/admin/train/gen-seat/2
+GET http://localhost:8000/business/admin/train/gen-seat/1
 Accept: application/json

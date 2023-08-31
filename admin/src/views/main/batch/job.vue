@@ -2,10 +2,10 @@
   <div class="job">
     <p>
       <a-button type="primary" @click="handleAdd()">
-        新增
+        刷新
       </a-button>&nbsp;
       <a-button type="primary" @click="handleQuery()">
-        刷新
+        新增
       </a-button>
     </p>
     <a-table :dataSource="jobs"

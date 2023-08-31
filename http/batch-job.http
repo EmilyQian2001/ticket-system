@@ -53,3 +53,13 @@ Content-Type: application/json
   "name": "com.yichun.ticket.batch.job.TestJob",
   "jobGroupName": "default"
 }
+###
+
+POST http://localhost:8000/batch/admin/job/run
+Content-Type: application/json
+
+{
+  "name": "com.yichun.ticket.batch.job.DailyTrainJob",
+  "jobGroupName": "default",
+  "cronExpression": "*/5 * * * * ?"
+}

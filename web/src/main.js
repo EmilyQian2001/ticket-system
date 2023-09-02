@@ -7,7 +7,7 @@ import 'ant-design-vue/dist/antd.css';
 import * as Icons from '@ant-design/icons-vue';
 import axios from 'axios';
 import {notification} from "ant-design-vue";
-import './assets/js/enum';
+import './assets/js/enums';
 
 const app = createApp(App);
 app.use(Antd).use(store).use(router).mount('#app');

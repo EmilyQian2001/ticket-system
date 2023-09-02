@@ -1,6 +1,7 @@
 package com.yichun.ticket.generator.gen;
 
 import cn.hutool.core.util.StrUtil;
+import com.yichun.ticket.business.enums.ConfirmOrderStatusEnum;
 import com.yichun.ticket.business.enums.SeatColEnum;
 import com.yichun.ticket.business.enums.SeatTypeEnum;
 import com.yichun.ticket.business.enums.TrainTypeEnum;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class EnumGenerator {
     static String path = "admin/src/assets/js/enums.js";
-
+//    static String path = "web/src/assets/js/enums.js";
     public static void main(String[] args) {
         StringBuffer bufferObject = new StringBuffer();
         StringBuffer bufferArray = new StringBuffer();
@@ -26,6 +27,8 @@ public class EnumGenerator {
             toJson(TrainTypeEnum.class, bufferObject, bufferArray);
             toJson(SeatTypeEnum.class, bufferObject, bufferArray);
             toJson(SeatColEnum.class, bufferObject, bufferArray);
+            toJson(ConfirmOrderStatusEnum.class, bufferObject, bufferArray);
+
 
             StringBuffer buffer = bufferObject.append("\r\n").append(bufferArray);
             writeJs(buffer);

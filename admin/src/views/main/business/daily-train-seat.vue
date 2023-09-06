@@ -212,6 +212,7 @@ export default defineComponent({
         };
       }
       loading.value = true;
+      console.log(params.value.trainCode);
       axios.get("/business/admin/daily-train-seat/query-list", {
         params: {
           page: param.page,

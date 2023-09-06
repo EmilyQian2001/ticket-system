@@ -20,6 +20,12 @@
             <a style="color: red">删除</a>
           </a-popconfirm>
           <a @click="onEdit(record)">编辑</a>
+          <a-popconfirm
+              title="生成座位将删除已有记录，确认生成座位?"
+              @confirm="genSeat(record)"
+              ok-text="确认" cancel-text="取消">
+            <a>生成座位</a>
+          </a-popconfirm>
         </a-space>
       </template>
       <template v-else-if="column.dataIndex === 'type'">
@@ -36,7 +42,6 @@
     <a-form :model="train" :label-col="{span: 4}" :wrapper-col="{ span: 20 }">
       <a-form-item label="车次编号">
         <a-input v-model:value="train.code" :disabled="!!train.id"/>
-<!--        加两个感叹号防空指针异常-->
       </a-form-item>
       <a-form-item label="车次类型">
         <a-select v-model:value="train.type">
@@ -72,7 +77,7 @@ import { defineComponent, ref, onMounted, watch } from 'vue';
 import {notification} from "ant-design-vue";
 import axios from "axios";
 import {pinyin} from "pinyin-pro";
-import StationSelectView from "@/components/station-select.vue";
+import StationSelectView from "@/components/station-select";
 
 export default defineComponent({
   name: "train-view",
@@ -102,50 +107,50 @@ export default defineComponent({
     });
     let loading = ref(false);
     const columns = [
-    {
-      title: '车次编号',
-      dataIndex: 'code',
-      key: 'code',
-    },
-    {
-      title: '车次类型',
-      dataIndex: 'type',
-      key: 'type',
-    },
-    {
-      title: '始发站',
-      dataIndex: 'start',
-      key: 'start',
-    },
-    {
-      title: '始发站拼音',
-      dataIndex: 'startPinyin',
-      key: 'startPinyin',
-    },
-    {
-      title: '出发时间',
-      dataIndex: 'startTime',
-      key: 'startTime',
-    },
-    {
-      title: '终点站',
-      dataIndex: 'end',
-      key: 'end',
-    },
-    {
-      title: '终点站拼音',
-      dataIndex: 'endPinyin',
-      key: 'endPinyin',
-    },
-    {
-      title: '到站时间',
-      dataIndex: 'endTime',
-      key: 'endTime',
-    },
-    {
-      title: '操作',
-      dataIndex: 'operation'
-    }
+      {
+        title: '车次编号',
+        dataIndex: 'code',
+        key: 'code',
+      },
+      {
+        title: '车次类型',
+        dataIndex: 'type',
+        key: 'type',
+      },
+      {
+        title: '始发站',
+        dataIndex: 'start',
+        key: 'start',
+      },
+      {
+        title: '始发站拼音',
+        dataIndex: 'startPinyin',
+        key: 'startPinyin',
+      },
+      {
+        title: '出发时间',
+        dataIndex: 'startTime',
+        key: 'startTime',
+      },
+      {
+        title: '终点站',
+        dataIndex: 'end',
+        key: 'end',
+      },
+      {
+        title: '终点站拼音',
+        dataIndex: 'endPinyin',
+        key: 'endPinyin',
+      },
+      {
+        title: '到站时间',
+        dataIndex: 'endTime',
+        key: 'endTime',
+      },
+      {
+        title: '操作',
+        dataIndex: 'operation'
+      }
     ];
 
     watch(() => train.value.start, ()=>{
@@ -231,15 +236,26 @@ export default defineComponent({
       });
     };
 
-    const handleTableChange = (page) => {
-      // console.log("看看自带的分页参数都有啥：" + JSON.stringify(page));
-      pagination.value.pageSize = page.pageSize;
+    const handleTableChange = (pagination) => {
+      // console.log("看看自带的分页参数都有啥：" + pagination);
       handleQuery({
-        page: page.current,
-        size: page.pageSize
+        page: pagination.current,
+        size: pagination.pageSize
       });
     };
 
+    const genSeat = (record) => {
+      loading.value = true;
+      axios.get("/business/admin/train/gen-seat/" + record.code).then((response) => {
+        loading.value = false;
+        const data = response.data;
+        if (data.success) {
+          notification.success({description: "生成成功！"});
+        } else {
+          notification.error({description: data.message});
+        }
+      });
+    };
 
     onMounted(() => {
       handleQuery({
@@ -261,7 +277,8 @@ export default defineComponent({
       onAdd,
       handleOk,
       onEdit,
-      onDelete
+      onDelete,
+      genSeat
     };
   },
 });

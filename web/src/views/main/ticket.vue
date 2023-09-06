@@ -17,15 +17,15 @@
         <a-button type="primary" @click="toOrder(record)">预订</a-button>
       </template>
       <template v-else-if="column.dataIndex === 'station'">
-        {{ record.start }}<br/>
-        {{ record.end }}
+        {{record.start}}<br/>
+        {{record.end}}
       </template>
       <template v-else-if="column.dataIndex === 'time'">
-        {{ record.startTime }}<br/>
-        {{ record.endTime }}
+        {{record.startTime}}<br/>
+        {{record.endTime}}
       </template>
       <template v-else-if="column.dataIndex === 'duration'">
-        {{ calDuration(record.startTime, record.endTime) }}<br/>
+        {{calDuration(record.startTime, record.endTime)}}<br/>
         <div v-if="record.startTime.replaceAll(':', '') >= record.endTime.replaceAll(':', '')">
           次日到达
         </div>
@@ -35,8 +35,8 @@
       </template>
       <template v-else-if="column.dataIndex === 'ydz'">
         <div v-if="record.ydz >= 0">
-          {{ record.ydz }}<br/>
-          {{ record.ydzPrice }}￥
+          {{record.ydz}}<br/>
+          {{record.ydzPrice}}￥
         </div>
         <div v-else>
           --
@@ -44,8 +44,8 @@
       </template>
       <template v-else-if="column.dataIndex === 'edz'">
         <div v-if="record.edz >= 0">
-          {{ record.edz }}<br/>
-          {{ record.edzPrice }}￥
+          {{record.edz}}<br/>
+          {{record.edzPrice}}￥
         </div>
         <div v-else>
           --
@@ -53,8 +53,8 @@
       </template>
       <template v-else-if="column.dataIndex === 'rw'">
         <div v-if="record.rw >= 0">
-          {{ record.rw }}<br/>
-          {{ record.rwPrice }}￥
+          {{record.rw}}<br/>
+          {{record.rwPrice}}￥
         </div>
         <div v-else>
           --
@@ -62,8 +62,8 @@
       </template>
       <template v-else-if="column.dataIndex === 'yw'">
         <div v-if="record.yw >= 0">
-          {{ record.yw }}<br/>
-          {{ record.ywPrice }}￥
+          {{record.yw}}<br/>
+          {{record.ywPrice}}￥
         </div>
         <div v-else>
           --
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import {defineComponent, ref, onMounted} from 'vue';
+import { defineComponent, ref, onMounted } from 'vue';
 import {notification} from "ant-design-vue";
 import axios from "axios";
 import StationSelectView from "@/components/station-select";
@@ -227,20 +227,16 @@ export default defineComponent({
     const toOrder = (record) => {
       dailyTrainTicket.value = Tool.copy(record);
       SessionStorage.set(SESSION_ORDER, dailyTrainTicket.value);
-      router.push("/order");
+      router.push("/order")
     };
 
     onMounted(() => {
-      // handleQuery({
-      //   page: 1,
-      //   size: pagination.value.pageSize
-      // });
       //  "|| {}"是常用技巧，可以避免空指针异常
       params.value = SessionStorage.get(SESSION_TICKET_PARAMS) || {};
       if (Tool.isNotEmpty(params.value)) {
         handleQuery({
-            page: 1,
-            size: pagination.value.pageSize
+          page: 1,
+          size: pagination.value.pageSize
         });
       }
     });

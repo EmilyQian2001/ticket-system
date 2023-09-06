@@ -58,15 +58,15 @@ public class DailyTrainSeatService {
         DailyTrainSeatExample dailyTrainSeatExample = new DailyTrainSeatExample();
         dailyTrainSeatExample.setOrderByClause("date desc, train_code asc, carriage_index asc, carriage_seat_index asc");
         DailyTrainSeatExample.Criteria criteria = dailyTrainSeatExample.createCriteria();
+//        LOG.info("车次：{}", req.getTrainCode());
+        if(ObjectUtil.isNotEmpty(req.getTrainCode())){
+            criteria.andTrainCodeEqualTo(req.getTrainCode());
+        }
 
         LOG.info("查询页码：{}", req.getPage());
         LOG.info("每页条数：{}", req.getSize());
         PageHelper.startPage(req.getPage(), req.getSize());
         List<DailyTrainSeat> dailyTrainSeatList = dailyTrainSeatMapper.selectByExample(dailyTrainSeatExample);
-
-        if(ObjectUtil.isNotEmpty(req.getTrainCode())){
-            criteria.andTrainCodeEqualTo(req.getTrainCode());
-        }
 
         PageInfo<DailyTrainSeat> pageInfo = new PageInfo<>(dailyTrainSeatList);
         LOG.info("总行数：{}", pageInfo.getTotal());
@@ -130,5 +130,15 @@ public class DailyTrainSeatService {
             return -1;
         }
         return (int) l;
+    }
+
+    public List<DailyTrainSeat> selectByCarriage(Date date, String trainCode, Integer carriageIndex) {
+        DailyTrainSeatExample example = new DailyTrainSeatExample();
+        example.setOrderByClause("carriage_seat_index asc");
+        example.createCriteria()
+                .andDateEqualTo(date)
+                .andTrainCodeEqualTo(trainCode)
+                .andCarriageIndexEqualTo(carriageIndex);
+        return dailyTrainSeatMapper.selectByExample(example);
     }
 }
